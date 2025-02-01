@@ -4,8 +4,46 @@ import functools
 import numpy as np
 
 from qecsim.src.qecsim import paulitools as pt
-from qecsim.src.qecsim.model import ErrorModel, cli_description
+from qecsim.src.qecsim.model import ErrorModel, PerQubitErrorModel, cli_description
 
+class SimplePerQubitErrorModel(PerQubitErrorModel):
+    """
+    Implements a simple per-qubit error model that generates an error based on the number of qubits and the probability
+    distribution on each qubit.
+
+    This class cannot be instantiated directly, see :class:`qecsim.models.generic.DepolarizingErrorModel` for an example
+    implementation.
+    """
+    @abc.abstractmethod
+    def probability_distribution(self, probabilities):
+        """See :meth:`qecsim.model.ErrorModel.probability_distribution`
+
+        Note: Implementing this method is **required**. It is invoked by :meth:`generate`.
+        """
+
+    def generate(self, code, probabilities, rng=None):
+        """
+        See :meth:`qecsim.model.ErrorModel.generate`
+
+        Notes:
+
+        * This method delegates to :meth:`probability_distribution` to find the probability of I, X, Y, Z operators on
+          each qubit, assuming a an independent, but not identically distributed error model.
+        """
+        assert len(probabilities) == code.n_k_d[0], "Length of error probabilities list doesn't match number of qubits in code" 
+        rng = np.random.default_rng() if rng is None else rng
+        paulis = ('I', 'X', 'Y', 'Z')
+        error_pauli_list = [rng.choice(paulis, p = prob) for prob in probabilities]
+        error_pauli = ''.join(error_pauli_list)
+        return pt.pauli_to_bsf(error_pauli)
+
+    @property
+    @abc.abstractmethod
+    def label(self):
+        """See :meth:`qecsim.model.ErrorModel.label`"""
+
+    def __repr__(self):
+        return '{}()'.format(type(self).__name__)
 
 class SimpleErrorModel(ErrorModel):
     """
@@ -49,6 +87,21 @@ class SimpleErrorModel(ErrorModel):
     def __repr__(self):
         return '{}()'.format(type(self).__name__)
 
+@cli_description('Pr I,X,Y,Z for each qubit is custom')
+class CustomPerQubitPauliErrorModel(SimplePerQubitErrorModel):
+    """ 
+    Implements a custom per-qubit error model that is independent, but not identically distributed
+    """
+
+    @functools.lru_cache()
+    def probability_distribution(self, probabilities):
+        """See :meth:`qecsim.model.PerQubitErrorModel.probability_distribution`"""
+        return probabilities
+    
+    @property
+    def label(self):
+        """See :meth:`qecsim.model.PerQubitErrorModel.label`"""
+        return 'Custom Pauli'
 
 @cli_description('Pr I,X,Y,Z is 1-p,p/3,p/3,p/3')
 class DepolarizingErrorModel(SimpleErrorModel):

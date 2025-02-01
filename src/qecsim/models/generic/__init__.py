@@ -4,8 +4,10 @@ This module contains generic implementations of error models and decoders that w
 
 # import classes in dependency order
 from ._simpleerrormodel import SimpleErrorModel  # noqa: F401
+from ._simpleerrormodel import SimplePerQubitErrorModel # noqa: F401
 from ._simpleerrormodel import BitFlipErrorModel  # noqa: F401
 from ._simpleerrormodel import BitPhaseFlipErrorModel  # noqa: F401
+from ._simpleerrormodel import CustomPerQubitPauliErrorModel
 from ._simpleerrormodel import DepolarizingErrorModel  # noqa: F401
 from ._simpleerrormodel import PhaseFlipErrorModel  # noqa: F401
 from ._biasederrormodel import BiasedDepolarizingErrorModel  # noqa: F401

@@ -7,8 +7,8 @@ import functools
 
 import numpy as np
 
-from qecsim import paulitools as pt
-from qecsim.error import QecsimError
+from qecsim.src.qecsim import paulitools as pt
+from qecsim.src.qecsim.error import QecsimError
 
 ATTR_CLI_DESCRIPTION = '__qecsim_cli_desc'
 
@@ -243,7 +243,7 @@ class PerQubitErrorModel(metaclass=abc.ABCMeta):
 
         :param code: Stabilizer code.
         :type code: StabilizerCode
-        :param probabilities: Overall probability of an error on a single qubit.
+        :param probabilities: Overall list of probabilities of an error on each qubit.
         :type probability: float
         :param rng: Random number generator. (default=None resolves to numpy.random.default_rng())
         :type rng: numpy.random.Generator
