@@ -7,9 +7,9 @@ import operator
 import numpy as np
 from mpmath import mp
 
-from qecsim import paulitools as pt, tensortools as tt
-from qecsim.model import Decoder, cli_description
-from qecsim.models.generic import DepolarizingErrorModel
+from qecsim.src.qecsim import paulitools as pt, tensortools as tt
+from qecsim.src.qecsim.model import Decoder, cli_description
+from qecsim.src.qecsim.models.generic import DepolarizingErrorModel
 
 logger = logging.getLogger(__name__)
 

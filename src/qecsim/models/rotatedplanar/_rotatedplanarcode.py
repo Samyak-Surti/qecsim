@@ -4,8 +4,8 @@ import operator
 
 import numpy as np
 
-from qecsim.model import StabilizerCode, cli_description
-from qecsim.models.rotatedplanar import RotatedPlanarPauli
+from qecsim.src.qecsim.model import StabilizerCode, cli_description
+from qecsim.src.qecsim.models.rotatedplanar import RotatedPlanarPauli
 
 
 @cli_description('Rotated planar (rows INT >= 3, cols INT >= 3)')

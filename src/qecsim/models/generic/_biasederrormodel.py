@@ -1,8 +1,8 @@
 import functools
 import math
 
-from qecsim.model import cli_description
-from qecsim.models.generic import SimpleErrorModel
+from qecsim.src.qecsim.model import cli_description
+from qecsim.src.qecsim.models.generic import SimpleErrorModel
 
 
 @cli_description('Biased (bias FLOAT > 0, [axis] CHAR)')

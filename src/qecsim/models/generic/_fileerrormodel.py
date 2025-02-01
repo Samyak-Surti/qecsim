@@ -3,8 +3,8 @@ import json
 import operator
 import re
 
-from qecsim import paulitools as pt
-from qecsim.model import ErrorModel, cli_description
+from qecsim.src.qecsim import paulitools as pt
+from qecsim.src.qecsim.model import ErrorModel, cli_description
 
 _RE_ATTR_NAME = re.compile(r"^[a-zA-Z]\w*$")
 _RE_COMMENT_BLANK_LINE = re.compile(r"^\s*(//.*)?$")

@@ -2,8 +2,8 @@ import operator
 
 import numpy as np
 
-from qecsim import paulitools as pt
-from qecsim.model import Decoder, cli_description
+from qecsim.src.qecsim import paulitools as pt
+from qecsim.src.qecsim.model import Decoder, cli_description
 
 
 @cli_description('Naive ([max_qubits] INT)')

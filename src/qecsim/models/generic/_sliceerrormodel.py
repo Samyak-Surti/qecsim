@@ -2,9 +2,9 @@ import functools
 
 import numpy as np
 
-from qecsim.error import QecsimError
-from qecsim.model import cli_description
-from qecsim.models.generic import SimpleErrorModel
+from qecsim.src.qecsim.error import QecsimError
+from qecsim.src.qecsim.model import cli_description
+from qecsim.src.qecsim.models.generic import SimpleErrorModel
 
 
 @cli_description('Slice (lim 3-tuple of FLOAT, pos FLOAT)')

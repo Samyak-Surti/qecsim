@@ -6,12 +6,12 @@ from collections import OrderedDict
 
 import numpy as np
 
-from qecsim import graphtools as gt
-from qecsim import paulitools as pt
-from qecsim.error import QecsimError
-from qecsim.model import Decoder, DecoderFTP, cli_description
-from qecsim.models.generic import BiasedDepolarizingErrorModel
-from qecsim.models.generic import BitPhaseFlipErrorModel
+from qecsim.src.qecsim import graphtools as gt
+from qecsim.src.qecsim import paulitools as pt
+from qecsim.src.qecsim.error import QecsimError
+from qecsim.src.qecsim.model import Decoder, DecoderFTP, cli_description
+from qecsim.src.qecsim.models.generic import BiasedDepolarizingErrorModel
+from qecsim.src.qecsim.models.generic import BitPhaseFlipErrorModel
 
 logger = logging.getLogger(__name__)
 

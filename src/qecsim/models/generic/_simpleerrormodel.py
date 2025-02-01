@@ -3,8 +3,8 @@ import functools
 
 import numpy as np
 
-from qecsim import paulitools as pt
-from qecsim.model import ErrorModel, cli_description
+from qecsim.src.qecsim import paulitools as pt
+from qecsim.src.qecsim.model import ErrorModel, cli_description
 
 
 class SimpleErrorModel(ErrorModel):

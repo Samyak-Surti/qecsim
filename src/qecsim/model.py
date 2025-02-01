@@ -209,6 +209,57 @@ class ErrorModel(metaclass=abc.ABCMeta):
         :rtype: str
         """
 
+class PerQubitErrorModel(metaclass=abc.ABCMeta):
+    """
+    Defines a per-qubit error model properties and methods.
+
+    This class cannot be instantiated directly.
+    """
+
+    def probability_distribution(self, probabilities):
+        """
+        Return the single-qubit probability distribution amongst Pauli I, X, Y and Z, for each qubit.
+
+        Notes:
+
+        * Implementing this method is **optional**. It is **not** invoked by any core modules. By default, it raises
+          :class:`NotImplementedError`.
+        * Since this method is often useful for decoders, it is provided as a template and subclasses are encouraged to
+          implement it when appropriate, particularly for IID error models.
+
+        :param probabilities: Overall list of probabilities of an error on each qubit.
+        :type probabilities: list
+        :return: Dictionary of probability distributions in the format {q_i : (Pr(I), Pr(X), Pr(Y), Pr(Z)) for q_i in qubits}.
+        :rtype: Dictionary of 4-tuples of floats
+        :raises NotImplementedError: Unless implemented in a subclass.
+        """
+        raise NotImplementedError("Attempt to invoke non-implemented optional method: {}.probability_distribution"
+                                  .format(type(self).__qualname__))
+
+    @abc.abstractmethod
+    def generate(self, code, probabilities, rng=None):
+        """
+        Generate new error based on per-qubit probability list.
+
+        :param code: Stabilizer code.
+        :type code: StabilizerCode
+        :param probabilities: Overall probability of an error on a single qubit.
+        :type probability: float
+        :param rng: Random number generator. (default=None resolves to numpy.random.default_rng())
+        :type rng: numpy.random.Generator
+        :return: New error as binary symplectic vector.
+        :rtype: numpy.array (1d)
+        """
+
+    @property
+    @abc.abstractmethod
+    def label(self):
+        """
+        Label suitable for use in plots.
+
+        :rtype: str
+        """
+
 
 class Decoder(metaclass=abc.ABCMeta):
     """

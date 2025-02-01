@@ -10,7 +10,7 @@ Notes:
 import numpy as np
 from mpmath import mp
 
-from qecsim.tensortools import tsr as tt_tsr, mps as tt_mps
+from qecsim.src.qecsim.tensortools import tsr as tt_tsr, mps as tt_mps
 
 
 def transpose(tn):

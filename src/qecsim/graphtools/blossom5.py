@@ -23,7 +23,7 @@ import decimal
 import functools
 import logging
 
-from qecsim import util
+from qecsim.src.qecsim import util
 
 logger = logging.getLogger(__name__)
 
