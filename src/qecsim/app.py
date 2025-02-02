@@ -10,9 +10,9 @@ import time
 
 import numpy as np
 
-from qecsim import paulitools as pt
-from qecsim.error import QecsimError
-from qecsim.model import DecodeResult
+from qecsim.src.qecsim import paulitools as pt
+from qecsim.src.qecsim.error import QecsimError
+from qecsim.src.qecsim.model import DecodeResult
 
 logger = logging.getLogger(__name__)
 
@@ -179,7 +179,7 @@ def run_once(code, error_model, decoder, error_probability, rng=None):
     """
 
     # validate parameters
-    if not (0 <= error_probability <= 1):
+    if type(error_probability) != list and not (0 <= error_probability <= 1):
         raise ValueError('Error probability must be in [0, 1].')
 
     # defaults

@@ -411,21 +411,34 @@ class RotatedPlanarMPSDecoder(Decoder):
 
             # extract code
             code = sample_pauli.code
+            # Check prob dist length
+            is_per_qubit_error = False
+            if (len(prob_dist) == code.n_k_d[0]):
+                is_per_qubit_error = True
             # initialise empty tn
             tn_max_r, _ = _rotate_q_index((0, 0), code)
             _, tn_max_c = _rotate_q_index((code.site_bounds[0], 0), code)
             tn = np.empty((tn_max_r + 1, tn_max_c + 1), dtype=object)
             # iterate over
             max_site_x, max_site_y = code.site_bounds
+            count = 0
             for code_index in itertools.product(range(-1, max_site_x + 1), range(-1, max_site_y + 1)):
                 is_z_plaquette = code.is_z_plaquette(code_index)
                 if code.is_in_site_bounds(code_index):
+                    count += 1
                     q_node_index = _rotate_q_index(code_index, code)
                     q_pauli = sample_pauli.operator(code_index)
+                    prob_dist_index = code_index[0] * (code.site_bounds[0] + 1) + code_index[1]
                     if is_z_plaquette:
-                        q_node = self.create_h_node(prob_dist, q_pauli, _compass_q_direction(code_index, code))
+                        if is_per_qubit_error:
+                            q_node = self.create_h_node(prob_dist[prob_dist_index], q_pauli, _compass_q_direction(code_index, code))
+                        else:
+                            q_node = self.create_h_node(prob_dist, q_pauli, _compass_q_direction(code_index, code))
                     else:
-                        q_node = self.create_v_node(prob_dist, q_pauli, _compass_q_direction(code_index, code))
+                        if is_per_qubit_error:
+                            q_node = self.create_v_node(prob_dist[prob_dist_index], q_pauli, _compass_q_direction(code_index, code))
+                        else:
+                            q_node = self.create_v_node(prob_dist, q_pauli, _compass_q_direction(code_index, code))
                     tn[q_node_index] = q_node
                 if code.is_in_plaquette_bounds(code_index):
                     s_node_index = _rotate_p_index(code_index, code)

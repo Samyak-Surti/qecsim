@@ -92,8 +92,6 @@ class CustomPerQubitPauliErrorModel(SimplePerQubitErrorModel):
     """ 
     Implements a custom per-qubit error model that is independent, but not identically distributed
     """
-
-    @functools.lru_cache()
     def probability_distribution(self, probabilities):
         """See :meth:`qecsim.model.PerQubitErrorModel.probability_distribution`"""
         return probabilities
