@@ -421,11 +421,9 @@ class RotatedPlanarMPSDecoder(Decoder):
             tn = np.empty((tn_max_r + 1, tn_max_c + 1), dtype=object)
             # iterate over
             max_site_x, max_site_y = code.site_bounds
-            count = 0
             for code_index in itertools.product(range(-1, max_site_x + 1), range(-1, max_site_y + 1)):
                 is_z_plaquette = code.is_z_plaquette(code_index)
                 if code.is_in_site_bounds(code_index):
-                    count += 1
                     q_node_index = _rotate_q_index(code_index, code)
                     q_pauli = sample_pauli.operator(code_index)
                     prob_dist_index = code_index[0] * (code.site_bounds[0] + 1) + code_index[1]
