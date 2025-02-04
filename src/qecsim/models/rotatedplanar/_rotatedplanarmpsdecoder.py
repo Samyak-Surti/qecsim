@@ -284,7 +284,7 @@ class RotatedPlanarMPSDecoder(Decoder):
                 # context
                 'error': pt.pack(kwargs['error']) if 'error' in kwargs else None,
             }
-            logger.warning('NON-POSITIVE-FINITE MAX COSET PROBABILITY: {}'.format(json.dumps(log_data, sort_keys=True)))
+            # logger.warning('NON-POSITIVE-FINITE MAX COSET PROBABILITY: {}'.format(json.dumps(log_data, sort_keys=True)))
         # return most likely recovery operation as bsf
         return max_recovery.to_bsf()
 

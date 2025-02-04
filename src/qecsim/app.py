@@ -179,7 +179,7 @@ def run_once(code, error_model, decoder, error_probability, rng=None):
     """
 
     # validate parameters
-    if type(error_probability) != list and not (0 <= error_probability <= 1):
+    if type(error_probability) != list and not (0 <= error_probability <= 1): #TODO - hacky fix, works for now
         raise ValueError('Error probability must be in [0, 1].')
 
     # defaults
@@ -263,7 +263,7 @@ def run_once_ftp(code, time_steps, error_model, decoder, error_probability,
     # validate parameters
     if not time_steps >= 1:
         raise ValueError('Time steps must be integer >= 1.')
-    if not (0 <= error_probability <= 1):
+    if type(error_probability) != list and not (0 <= error_probability <= 1): #TODO - hacky fix, works for now
         raise ValueError('Error probability must be in [0, 1].')
     if not (measurement_error_probability is None or (0 <= measurement_error_probability <= 1)):
         raise ValueError('Measurement error probability must be None or in [0, 1].')
@@ -432,7 +432,7 @@ def run(code, error_model, decoder, error_probability, max_runs=None, max_failur
     """
 
     # validate parameters
-    if not (0 <= error_probability <= 1):
+    if type(error_probability) != list and not (0 <= error_probability <= 1): #TODO - hacky fix, works for now
         raise ValueError('Error probability must be in [0, 1].')
     return _run('ideal', code, 1, error_model, decoder, error_probability, 0.0, max_runs, max_failures, random_seed)
 
