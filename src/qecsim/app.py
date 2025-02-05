@@ -7,6 +7,7 @@ import json
 import logging
 import statistics
 import time
+from tqdm import tqdm
 
 import numpy as np
 

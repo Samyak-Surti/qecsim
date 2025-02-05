@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 @cli_description('MPS ([chi] INT >=0, [mode] CHAR, ...)')
 class RotatedPlanarMPSDecoder(Decoder):
-    r"""
+    """
     Implements a rotated planar Matrix Product State (MPS) decoder.
 
     Decoding algorithm:
@@ -426,7 +426,10 @@ class RotatedPlanarMPSDecoder(Decoder):
                 if code.is_in_site_bounds(code_index):
                     q_node_index = _rotate_q_index(code_index, code)
                     q_pauli = sample_pauli.operator(code_index)
-                    prob_dist_index = code_index[0] * (code.site_bounds[0] + 1) + code_index[1]
+                    if (code.site_bounds[0] < code.site_bounds[1]):
+                        prob_dist_index = code_index[0] * (code.site_bounds[0] + 1) + code_index[1]
+                    else:
+                        prob_dist_index = code_index[1] * (code.site_bounds[1] + 1) + code_index[0]
                     if is_z_plaquette:
                         if is_per_qubit_error:
                             q_node = self.create_h_node(prob_dist[prob_dist_index], q_pauli, _compass_q_direction(code_index, code))
